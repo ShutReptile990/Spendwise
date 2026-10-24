@@ -1,42 +1,66 @@
 {
   "expo": {
-    "name": "Spendwise",
-    "slug": "Spendwise",
-    "version": "1.0.0",
+    "name": "SpendWise",
+    "slug": "spendwise",
+    "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/branding/generated/launcher-icon.png",
     "scheme": "spendwise",
-    "userInterfaceStyle": "automatic",
-    "ios": {
-      "icon": "./assets/expo.icon"
-    },
+    "platforms": [
+      "android"
+    ],
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0A0F1E",
+    "primaryColor": "#3B82F6",
     "android": {
+      "icon": "./assets/branding/generated/launcher-icon.png",
+      "package": "com.spendwise.expensetracker",
+      "backgroundColor": "#0A0F1E",
+      "versionCode": 3,
+      "softwareKeyboardLayoutMode": "resize",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "backgroundColor": "#0A0F1E",
+        "foregroundImage": "./assets/branding/generated/adaptive-foreground.png",
+        "monochromeImage": "./assets/branding/generated/adaptive-monochrome.png"
       },
       "predictiveBackGestureEnabled": false
     },
-    "web": {
-      "output": "server",
-      "favicon": "./assets/images/favicon.png"
-    },
     "plugins": [
       "expo-router",
+      "expo-notifications",
+      [
+        "expo-navigation-bar",
+        {
+          "enforceContrast": false,
+          "style": "light"
+        }
+      ],
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#208AEF",
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 76
+          "backgroundColor": "#0A0F1E",
+          "image": "./assets/branding/generated/splash-logo.png",
+          "imageWidth": 300
         }
-      ]
+      ],
+      "@react-native-community/datetimepicker"
     ],
     "experiments": {
-      "typedRoutes": true,
-      "reactCompiler": true
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "expo-navigation-bar": {
+        "enforceContrast": false,
+        "style": "light"
+      },
+      "eas": {
+        "projectId": "0bee5815-514b-4acc-be7e-53101902281f"
+      }
     }
   }
 }

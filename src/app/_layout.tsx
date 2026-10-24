@@ -1,18 +1,34 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import { Stack } from 'expo-router';
+import { NavigationBar } from 'expo-navigation-bar';
+import { StatusBar } from 'expo-status-bar';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+import { colors } from '@/theme/palette';
+import { DatabaseBoundary } from '@/components/database-boundary';
+import { TransactionEventsProvider } from '@/data/transaction-events';
+import { BudgetAlertObserver } from '@/features/budgets/budget-alert-observer';
+import { AppLockGate, AppLockProvider } from '@/features/security/app-lock';
 
-SplashScreen.preventAutoHideAsync();
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function RootLayout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <>
+      <StatusBar style="light" />
+      <NavigationBar style="light" />
+      <DatabaseBoundary>
+        <TransactionEventsProvider>
+          <AppLockProvider><AppLockGate>
+            <BudgetAlertObserver />
+            <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.background } }}>
+              <Stack.Screen name="(tabs)" />
+              <Stack.Screen name="transaction/new" options={{ presentation: 'modal' }} />
+              <Stack.Screen name="transaction/[id]/index" />
+              <Stack.Screen name="transaction/[id]/edit" options={{ presentation: 'modal' }} />
+              <Stack.Screen name="goals/index" />
+              <Stack.Screen name="goals/manage" options={{ presentation: 'modal' }} />
+              <Stack.Screen name="goals/[id]" />
+            </Stack>
+          </AppLockGate></AppLockProvider>
+        </TransactionEventsProvider>
+      </DatabaseBoundary>
+    </>
   );
 }
